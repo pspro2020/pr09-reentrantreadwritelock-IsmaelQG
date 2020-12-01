@@ -2,11 +2,11 @@ package code;
 
 import java.util.concurrent.TimeUnit;
 
-public class AÃ±adir implements Runnable{
+public class Añadir implements Runnable{
 	
 	private final Almacen almacen;
 	
-	public AÃ±adir(Almacen almacen) {
+	public Añadir(Almacen almacen) {
 		this.almacen=almacen;
 	}
 
@@ -18,7 +18,7 @@ public class AÃ±adir implements Runnable{
 				TimeUnit.SECONDS.sleep(2);	
 			
 			} catch (InterruptedException e) {
-			
+				return;
 			}
 		}
 	}

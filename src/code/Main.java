@@ -7,21 +7,22 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 		Almacen almacen = new Almacen();
 		Thread[] consultar = new Thread[3];
+		Thread añadir = new Thread(new Añadir(almacen), "Añadir");
+		añadir.start();
 		for(int i = 0; i < 3; i++) {
 			consultar[i] = new Thread(new Consultar(almacen, i+1), "Consultor " + i+1);
-		}
-		for(int i = 0; i < 3; i++) {
 			consultar[i].start();
 		}
-		Thread aÃ±adir = new Thread(new AÃ±adir(almacen), "AÃ±adir");
-		aÃ±adir.start();
 		
-		TimeUnit.SECONDS.sleep(10);
-		
+		TimeUnit.SECONDS.sleep(4);
+		añadir.interrupt();
 		for(int i = 0; i < 3; i++) {
 			consultar[i].interrupt();
 		}
-		aÃ±adir.interrupt();
+		añadir.join();
+		for(int i = 0; i < 3; i++) {
+			consultar[i].join();
+		}
 	}
 
 }
